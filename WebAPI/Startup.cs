@@ -30,9 +30,10 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {//Autofac, Ninject,CastleWindsor,StructreMap,LightInject,DryInject -->IoC Container
             //AOP
+            //Postsharp
             services.AddControllers();
-            services.AddSingleton<IProductService,ProductManager>();
-            services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<IProductService,ProductManager>();
+            //services.AddSingleton<IProductDal, EfProductDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
