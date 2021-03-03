@@ -11,8 +11,9 @@ using Business.Constants;
 
 namespace Business.BusinessAspects.Autofac
 {
+    //JWT
     public class SecuredOperation : MethodInterception
-    {//JWT
+    {
         private string[] _roles;
         private IHttpContextAccessor _httpContextAccessor;
 

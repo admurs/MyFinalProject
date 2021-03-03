@@ -1,9 +1,9 @@
 ﻿using Core.DataAccess;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Entities.DTOs;
 
 namespace DataAccess.Abstract
 {
@@ -12,4 +12,5 @@ namespace DataAccess.Abstract
         List<ProductDetailDto> GetProductDetails();
     }
 }
-//Code refactoring
+
+//Code Refactoring
