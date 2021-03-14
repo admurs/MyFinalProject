@@ -152,5 +152,10 @@ namespace Business.Concrete
             Add(product);
             return null;
         }
+
+        public object GetByCategoryId(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
