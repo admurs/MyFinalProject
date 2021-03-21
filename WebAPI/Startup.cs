@@ -77,8 +77,10 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -91,7 +93,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
-            
+            //23.10 dersteyiz
         }
     }
 }

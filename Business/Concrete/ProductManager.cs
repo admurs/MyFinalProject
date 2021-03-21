@@ -3,7 +3,9 @@ using Business.BusinessAspects.Autofac;
 using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -16,10 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Transactions;
-using Core.Aspects.Autofac;
-using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Performance;
 
 namespace Business.Concrete
 {
@@ -36,7 +34,7 @@ namespace Business.Concrete
 
         //00.25 Dersteyiz
         //Claim
-        [SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
@@ -56,10 +54,8 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.ProductAdded);
 
-
-           
-            //23:10 Dersteyiz
         }
+
 
         [CacheAspect] //key,value
         public IDataResult<List<Product>> GetAll()
@@ -76,8 +72,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
+
         [CacheAspect]
-        [PerformanceAspect(5)]
+        //[PerformanceAspect(5)]
         public IDataResult<Product> GetById(int productId)
         {
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
@@ -140,22 +137,21 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
-        [TransactionScopeAspect]
+
+        //[TransactionScopeAspect]
         public IResult AddTransactionalTest(Product product)
         {
-            Add(product);
-            if (product.UnitPrice<10)
-            {
-                throw  new Exception("");
-            }
 
             Add(product);
+            if (product.UnitPrice < 10)
+            {
+                    throw new Exception("");
+            }
+            
+            Add(product);
+
             return null;
         }
 
-        public object GetByCategoryId(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
